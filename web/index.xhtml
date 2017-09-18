@@ -27,4 +27,26 @@
       </h:panelGrid>
    </p:panel>
    </h:form>
+
+
+   <p:dataTable id="singleDT" var="car" selectionMode="single" >
+      <f:facet name="header">
+         Single with Row Click
+      </f:facet>
+      <p:column headerText="Id">
+         <h:outputText value="ok" />
+      </p:column>
+      <p:column headerText="Year">
+         <h:outputText value="ok" />
+      </p:column>
+      <p:column headerText="Brand">
+         <h:outputText value="ok" />
+      </p:column>
+      <p:column headerText="Color">
+         <h:outputText value="ok" />
+      </p:column>
+      <f:facet name="footer">
+         <p:commandButton  icon="ui-icon-search" value="View"  />
+      </f:facet>
+   </p:dataTable>
 </html>
