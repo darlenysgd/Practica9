@@ -61,7 +61,7 @@ public class FormRegistro implements Serializable{
         int aux = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cantidad") + 1;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cantidad", aux);
 
-        //contactos.add(contacto);
+        contactos.add(contacto);
 
         return "index?faces-redirect=true";
     }
