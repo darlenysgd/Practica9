@@ -11,7 +11,7 @@
 </h:head>
 
 <h:body>
-   <p:dataTable id="Contactos" var="p" value="lol" >
+   <p:dataTable id="Contactos" var="c" value="#{FormRegistro.contactos}" >
 
       <f:facet name="header">
          <p:outputPanel>
@@ -20,13 +20,13 @@
       </f:facet>
 
       <p:column headerText="Id">
-         <h:outputText value="ok" />
+         <h:outputText value="#" />
       </p:column>
       <p:column headerText="Nombre">
-         <h:outputText value="ok" />
+         <h:outputText value="#{c.nombre}" />
       </p:column>
       <p:column headerText="Apellido">
-         <h:outputText value="ok" />
+         <h:outputText value="#{c.apellido}" />
       </p:column>
       <p:column headerText="Direccion">
          <h:outputText value="ok" />
