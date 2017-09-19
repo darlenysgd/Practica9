@@ -21,7 +21,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2.173" level="application_server_libraries" />
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.2.173 - JSF" level="application_server_libraries" />
-    <orderEntry type="library" name="primefaces-6.1" level="project" />
     <orderEntry type="library" name="PrimeFaces-6.1" level="project" />
+    <orderEntry type="library" name="PrimeFaces-6.1" level="project" />
+    <orderEntry type="library" name="Hibernate Validator-5.0.1" level="project" />
+    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
   </component>
 </module>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Registro</title>
+</h:head>
+
+<h:form>
+    <p:panel id="panel" header="Nuevo Contacto" style="margin-bottom:10px;">
+        <p:messages id="messages" />
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="nombre" value="Nombre:" />
+            <p:inputText id="nombre" required="true" />
+
+            <p:outputLabel for="apellido" value="Apellido:" />
+            <p:inputText id="apellido" required="true" />
+
+            <p:outputLabel for="direccion" value="Direccion:" />
+            <p:inputText id="direccion" required="true"/>
+
+            <p:outputLabel for="telefono" value="Telefono:" />
+            <p:inputText id="telefono" required="true"/>
+
+            <p:outputLabel for="correo" value="Correo:" />
+            <p:inputText id="correo" required="true"/>
+
+        </h:panelGrid>
+    </p:panel>
+
+    <p:commandButton value="Guardar" update="panel"/>
+</h:form>
+</html>

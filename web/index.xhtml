@@ -2,51 +2,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
+<h:head>
+   <title>Lista de Contactos</title>
+</h:head>
 
-   <h:form id="form">
-   <p:panel id="panel" header="Form" style="margin-bottom:10px;">
-      <p:messages id="messages" />
-      <h:panelGrid columns="3" cellpadding="5">
-         <p:outputLabel for="text1" value="Text 1:" />
-         <p:inputText id="text1"  required="true" label="Firstname">
-            <f:validateLength minimum="2" />
-         </p:inputText>
-         <p:message for="text1" />
+<h:body>
+   <p:dataTable id="Contactos" var="p" value="lol" >
 
-         <p:outputLabel for="text2" value="Text 2:" />
-         <p:inputText id="text2"  required="true" label="Surname"/>
-         <p:message for="text2" />
-      </h:panelGrid>
-   </p:panel>
-   </h:form>
-
-
-   <p:dataTable id="singleDT" var="car" selectionMode="single" >
       <f:facet name="header">
-         Single with Row Click
+         <p:outputPanel>
+            <h:button icon="ui-icon-plusthick" value="Agregar Nuevo" outcome="Registro"/>
+         </p:outputPanel>
       </f:facet>
+
       <p:column headerText="Id">
          <h:outputText value="ok" />
       </p:column>
-      <p:column headerText="Year">
+      <p:column headerText="Nombre">
          <h:outputText value="ok" />
       </p:column>
-      <p:column headerText="Brand">
+      <p:column headerText="Apellido">
          <h:outputText value="ok" />
       </p:column>
-      <p:column headerText="Color">
+      <p:column headerText="Direccion">
+         <h:outputText value="ok" />
+      </p:column>
+      <p:column headerText="Telefono">
+         <h:outputText value="ok" />
+      </p:column>
+      <p:column headerText="Correo">
          <h:outputText value="ok" />
       </p:column>
       <f:facet name="footer">
-         <p:commandButton  icon="ui-icon-search" value="View"  />
+         <p:commandButton  icon="ui-icon-search" value="Editar"/>
+         <p:commandButton  icon="ui-icon-trash" value="Borrar"/>
       </f:facet>
    </p:dataTable>
+</h:body>
 </html>
