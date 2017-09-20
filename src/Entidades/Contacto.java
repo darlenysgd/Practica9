@@ -5,13 +5,15 @@ package Entidades;
  */
 public class Contacto {
 
+    private String id;
     private String nombre;
     private String apellido;
     private String direccion;
     private String telefono;
     private String correo;
 
-    public Contacto(String nombre, String apellido, String direccion, String telefono, String correo) {
+    public Contacto(String id, String nombre, String apellido, String direccion, String telefono, String correo) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
@@ -21,6 +23,14 @@ public class Contacto {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {

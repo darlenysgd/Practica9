@@ -6,23 +6,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Created by darle on 9/18/2017.
  */
 
-@Named("FormRegistro")
+//@Named("dtFormRegistro")
 @SessionScoped
-@ManagedBean
-@ViewScoped
+@ManagedBean(name="dtFormRegistro")
+@RequestScoped
+
 public class FormRegistro implements Serializable{
 
     @NotEmpty
@@ -37,6 +42,9 @@ public class FormRegistro implements Serializable{
     private String correo;
 
     private Set<Contacto> contactos;
+
+    private Contacto contactoSeleccionado;
+
     @PostConstruct
     private void inicializando(){
 
@@ -53,17 +61,45 @@ public class FormRegistro implements Serializable{
 
     public String guardarContacto(){
 
-        String id = "contacto " + FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cantidad");
-        Contacto contacto = new Contacto(this.nombre, this.apellido, this.direccion, this.telefono, this.correo);
+        String id = "Contacto " + FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cantidad");
+        Contacto contacto = new Contacto(id, this.nombre, this.apellido, this.direccion, this.telefono, this.correo);
 
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(String.valueOf(id), contacto);
 
         int aux = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cantidad") + 1;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cantidad", aux);
 
-        contactos.add(contacto);
+        mostrarTo();
 
+        for(Contacto aux1: contactos)
+        {
+            System.out.println(aux1.getNombre());
+        }
         return "index?faces-redirect=true";
+    }
+
+    public String eliminar(){
+
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(contactoSeleccionado.getId(), contactoSeleccionado);
+        mostrarTo();
+        return "index?faces-redirect=true";
+    }
+
+
+    public Object mostrarTo() {
+        contactos = new HashSet<>();
+        Map<String, Object> map = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        for (Map.Entry<String, Object> entry : map.entrySet()){
+
+            if (entry.getKey().contains("Contacto") ){
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+                contactos.add((Contacto) entry.getValue());
+            }
+        }
+
+
+
+        return null;
     }
 
     public Set<Contacto> getContactos() {
@@ -72,5 +108,53 @@ public class FormRegistro implements Serializable{
 
     public void setContactos(Set<Contacto> contactos) {
         this.contactos = contactos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public Contacto getContactoSeleccionado() {
+        return contactoSeleccionado;
+    }
+
+    public void setContactoSeleccionado(Contacto contactoSeleccionado) {
+        this.contactoSeleccionado = contactoSeleccionado;
     }
 }

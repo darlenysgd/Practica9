@@ -11,7 +11,7 @@
 </h:head>
 
 <h:body>
-   <p:dataTable id="Contactos" var="c" value="#{FormRegistro.contactos}" >
+   <p:dataTable id="singleDT" var="c" value="#{dtFormRegistro.contactos}" selectionMode="single" selection="#{dtFormRegistro.contactoSeleccionado}" rowKey="#{c.id}">
 
       <f:facet name="header">
          <p:outputPanel>
@@ -20,7 +20,7 @@
       </f:facet>
 
       <p:column headerText="Id">
-         <h:outputText value="#" />
+         <p:commandLink value="#{c.id}" oncomplete="PF('test').show()" update=":dialog"/>
       </p:column>
       <p:column headerText="Nombre">
          <h:outputText value="#{c.nombre}" />
@@ -29,18 +29,48 @@
          <h:outputText value="#{c.apellido}" />
       </p:column>
       <p:column headerText="Direccion">
-         <h:outputText value="ok" />
+         <h:outputText value="#{c.direccion}" />
       </p:column>
       <p:column headerText="Telefono">
-         <h:outputText value="ok" />
+         <h:outputText value="#{c.telefono}" />
       </p:column>
       <p:column headerText="Correo">
-         <h:outputText value="ok" />
+         <h:outputText value="#{c.correo}" />
       </p:column>
       <f:facet name="footer">
+
          <p:commandButton  icon="ui-icon-search" value="Editar"/>
-         <p:commandButton  icon="ui-icon-trash" value="Borrar"/>
+         <p:commandButton  process="singleDT" action="#{dtFormRegistro.eliminar}" icon="ui-icon-trash" value="Borrar"/>
       </f:facet>
    </p:dataTable>
+
+
 </h:body>
+
+<p:dialog modal="true" width="500" height="500" widgetVar="test"
+          id="dialog" draggable="false">
+   <p:panelGrid  columns="2" columnClasses="label,value">
+   <f:facet name="header">
+      <h:outputText value="Información del Contacto :" />
+   </f:facet>
+      <h:outputText value="Id" />
+      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.id}" />
+
+      <h:outputText value="Nombre" />
+      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.nombre}" />
+
+      <h:outputText value="Apellido" />
+      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.apellido}" />
+
+      <h:outputText value="Direccion" />
+      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.direccion}" />
+
+      <h:outputText value="Telefono" />
+      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.telefono}" />
+
+      <h:outputText value="Correo" />
+      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.correo}" />
+   </p:panelGrid>
+</p:dialog>
+
 </html>

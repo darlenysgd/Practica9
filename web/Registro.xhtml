@@ -10,27 +10,24 @@
 </h:head>
 
 <h:form>
-    <p:panel id="panel" header="Nuevo Contacto" style="margin-bottom:10px;">
-        <p:messages id="messages" />
-        <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="nombre" value="Nombre:" />
-            <p:inputText id="nombre" required="true" />
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="nombre" value="Nombre:" />
+        <p:inputText id="nombre" required="true" value="#{dtFormRegistro.nombre}"/>
 
-            <p:outputLabel for="apellido" value="Apellido:" />
-            <p:inputText id="apellido" required="true" />
+        <p:outputLabel for="apellido" value="Apellido:" />
+        <p:inputText id="apellido" required="true" value="#{dtFormRegistro.apellido}"/>
 
-            <p:outputLabel for="direccion" value="Direccion:" />
-            <p:inputText id="direccion" required="true"/>
+        <p:outputLabel for="direccion" value="Direccion:" />
+        <p:inputText id="direccion" required="true" value="#{dtFormRegistro.direccion}"/>
 
-            <p:outputLabel for="telefono" value="Telefono:" />
-            <p:inputText id="telefono" required="true"/>
+        <p:outputLabel for="telefono" value="Telefono:" />
+        <p:inputText id="telefono" required="true" value="#{dtFormRegistro.telefono}"/>
 
-            <p:outputLabel for="correo" value="Correo:" />
-            <p:inputText id="correo" required="true"/>
+        <p:outputLabel for="correo" value="Correo:" />
+        <p:inputText id="correo" required="true" value="#{dtFormRegistro.correo}"/>
 
-        </h:panelGrid>
-    </p:panel>
+        <h:commandButton value="Guardar" action="#{dtFormRegistro.guardarContacto}"/>
 
-    <p:commandButton value="Guardar" action="#{FormRegistro.guardarContacto}"/>
+    </h:panelGrid>
 </h:form>
 </html>
