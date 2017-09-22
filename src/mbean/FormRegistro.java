@@ -3,10 +3,12 @@ package mbean;
 
 import Entidades.Contacto;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -34,11 +36,8 @@ public class FormRegistro implements Serializable{
     private String nombre;
     @NotEmpty
     private String apellido;
-    @NotEmpty
     private String direccion;
-    @NotEmpty
     private String telefono;
-    @NotEmpty
     private String correo;
 
     private Set<Contacto> contactos;
@@ -71,10 +70,6 @@ public class FormRegistro implements Serializable{
 
         mostrarTo();
 
-        for(Contacto aux1: contactos)
-        {
-            System.out.println(aux1.getNombre());
-        }
         return "index?faces-redirect=true";
     }
 
@@ -83,6 +78,16 @@ public class FormRegistro implements Serializable{
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(contactoSeleccionado.getId(), contactoSeleccionado);
         mostrarTo();
         return "index?faces-redirect=true";
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Contacto Editado", ((Contacto) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Se ha cancelado la modifiación", ((Contacto) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 

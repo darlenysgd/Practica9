@@ -11,7 +11,29 @@
 </h:head>
 
 <h:body>
-   <p:dataTable id="singleDT" var="c" value="#{dtFormRegistro.contactos}" selectionMode="single" selection="#{dtFormRegistro.contactoSeleccionado}" rowKey="#{c.id}">
+
+   <h:form>
+      <h:panelGrid columns="2" cellpadding="5">
+
+         <h3>Creación de contacto rápido</h3>
+
+         <p:outputLabel for="nombre1" value="Nombre:" />
+         <p:inputText id="nombre1" required="true" value="#{dtFormRegistro.nombre}"/>
+
+         <p:outputLabel for="apellido2" value="Apellido:" />
+         <p:inputText id="apellido2" required="true" value="#{dtFormRegistro.apellido}"/>
+
+
+         <h:commandButton value="Guardar" action="#{dtFormRegistro.guardarContacto}"/>
+
+      </h:panelGrid>
+   </h:form>
+
+
+   <h:form id="tableForm">
+
+      <p:growl id="msgs" showDetail="true"/>
+   <p:dataTable id="singleDT" var="c" value="#{dtFormRegistro.contactos}" editable="true" selectionMode="single" selection="#{dtFormRegistro.contactoSeleccionado}" rowKey="#{c.id}" scrollable="tue">
 
       <f:facet name="header">
          <p:outputPanel>
@@ -19,58 +41,119 @@
          </p:outputPanel>
       </f:facet>
 
+      <p:ajax event="rowEdit" listener="#{dtFormRegistro.onRowEdit}" update=":tableForm:msgs" />
+      <p:ajax event="rowEditCancel" listener="#{dtFormRegistro.onRowCancel}" update=":tableForm:msgs" />
+
       <p:column headerText="Id">
-         <p:commandLink value="#{c.id}" oncomplete="PF('test').show()" update=":dialog"/>
+         <h:outputText value="#{c.id}" id="modelInput" />
       </p:column>
       <p:column headerText="Nombre">
-         <h:outputText value="#{c.nombre}" />
+         <p:cellEditor>
+            <f:facet name="output"><h:outputText value="#{c.nombre}" /></f:facet>
+            <f:facet name="input"><p:inputText value="#{c.nombre}" style="width:100%"/></f:facet>
+         </p:cellEditor>
       </p:column>
       <p:column headerText="Apellido">
-         <h:outputText value="#{c.apellido}" />
+         <p:cellEditor>
+            <f:facet name="output"><h:outputText value="#{c.apellido}" /></f:facet>
+            <f:facet name="input"><p:inputText value="#{c.apellido}" style="width:100%"/></f:facet>
+         </p:cellEditor>
       </p:column>
       <p:column headerText="Direccion">
-         <h:outputText value="#{c.direccion}" />
+         <p:cellEditor>
+            <f:facet name="output"><h:outputText value="#{c.direccion}" /></f:facet>
+            <f:facet name="input"><p:inputText value="#{c.direccion}" style="width:100%"/></f:facet>
+         </p:cellEditor>
       </p:column>
       <p:column headerText="Telefono">
-         <h:outputText value="#{c.telefono}" />
+         <p:cellEditor>
+            <f:facet name="output"><h:outputText value="#{c.telefono}" /></f:facet>
+            <f:facet name="input"><p:inputText value="#{c.telefono}" style="width:100%"/></f:facet>
+         </p:cellEditor>
       </p:column>
       <p:column headerText="Correo">
-         <h:outputText value="#{c.correo}" />
+         <p:cellEditor>
+            <f:facet name="output"><h:outputText value="#{c.correo}" /></f:facet>
+            <f:facet name="input"><p:inputText value="#{c.correo}" style="width:100%"/></f:facet>
+         </p:cellEditor>
+      </p:column>
+      <p:column style="width:32px">
+         <p:rowEditor />
       </p:column>
       <f:facet name="footer">
 
-         <p:commandButton  icon="ui-icon-search" value="Editar"/>
+         <p:column style="width:32px;text-align: center">
+            <p:commandButton process="singleDT" update=":tableForm:dialog" oncomplete="PF('test').show()" icon="ui-icon-contact" value="Vizualizar" >
+
+            </p:commandButton>
+         </p:column>
+
          <p:commandButton  process="singleDT" action="#{dtFormRegistro.eliminar}" icon="ui-icon-trash" value="Borrar"/>
       </f:facet>
+
    </p:dataTable>
 
+      <p:dialog header="Contacto" widgetVar="test" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+         <p:outputPanel id="dialog" style="text-align:center;">
+         <p:panelGrid  columns="2" columnClasses="label,value">
+         <f:facet name="header">
+            <h:outputText value="Información del Contacto :" />
+         </f:facet>
+         <h:outputText value="Id" />
+         <h:outputText value="#{dtFormRegistro.contactoSeleccionado.id}" />
+
+         <h:outputText value="Nombre" />
+         <h:outputText value="#{dtFormRegistro.contactoSeleccionado.nombre}" />
+
+         <h:outputText value="Apellido" />
+         <h:outputText value="#{dtFormRegistro.contactoSeleccionado.apellido}" />
+
+         <h:outputText value="Direccion" />
+         <h:outputText value="#{dtFormRegistro.contactoSeleccionado.direccion}" />
+
+         <h:outputText value="Telefono" />
+         <h:outputText value="#{dtFormRegistro.contactoSeleccionado.telefono}" />
+
+         <h:outputText value="Correo" />
+         <h:outputText value="#{dtFormRegistro.contactoSeleccionado.correo}" />
+      </p:panelGrid>
+         </p:outputPanel>
+   </p:dialog>
+
+
+      <p:dialog header="Contacto" widgetVar="edit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+         <p:outputPanel id="dialogEdit" style="text-align:center;">
+            <p:panelGrid  columns="2" columnClasses="label,value">
+               <f:facet name="header">
+                  <h:outputText value="Modificación del contacto :" />
+               </f:facet>
+               <h:outputText value="Id" />
+               <h:outputText value="#{dtFormRegistro.contactoSeleccionado.id}" />
+
+               <h:outputText value="Nombre" />
+               <p:inputText id="nombre" value="#{dtFormRegistro.contactoSeleccionado.nombre}"/>
+
+               <h:outputText value="Apellido" />
+               <p:inputText id="apellido" value="#{dtFormRegistro.contactoSeleccionado.apellido}"/>
+
+               <h:outputText value="Direccion" />
+               <p:inputText id="direccion" value="#{dtFormRegistro.contactoSeleccionado.direccion}"/>
+
+               <h:outputText value="Telefono" />
+               <p:inputText id="telefono" value="#{dtFormRegistro.contactoSeleccionado.telefono}"/>
+
+               <h:outputText value="Correo" />
+               <p:inputText id="correo" value="#{dtFormRegistro.contactoSeleccionado.correo}"/>
+
+               <h:commandButton value="Modificar" action="#{dtFormRegistro.modificar}"/>
+
+            </p:panelGrid>
+         </p:outputPanel>
+      </p:dialog>
+   </h:form>
 
 </h:body>
 
-<p:dialog modal="true" width="500" height="500" widgetVar="test"
-          id="dialog" draggable="false">
-   <p:panelGrid  columns="2" columnClasses="label,value">
-   <f:facet name="header">
-      <h:outputText value="Información del Contacto :" />
-   </f:facet>
-      <h:outputText value="Id" />
-      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.id}" />
 
-      <h:outputText value="Nombre" />
-      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.nombre}" />
-
-      <h:outputText value="Apellido" />
-      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.apellido}" />
-
-      <h:outputText value="Direccion" />
-      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.direccion}" />
-
-      <h:outputText value="Telefono" />
-      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.telefono}" />
-
-      <h:outputText value="Correo" />
-      <h:outputText value="#{dtFormRegistro.contactoSeleccionado.correo}" />
-   </p:panelGrid>
-</p:dialog>
 
 </html>
